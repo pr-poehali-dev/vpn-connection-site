@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -10,17 +10,7 @@ const Index = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [selectedServer, setSelectedServer] = useState('США');
   const [currentTab, setCurrentTab] = useState('main');
-  const [showNotification, setShowNotification] = useState(false);
 
-  useEffect(() => {
-    if (isConnected) {
-      setShowNotification(true);
-      const timer = setTimeout(() => {
-        setShowNotification(false);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [isConnected]);
 
   const servers = [
     { name: 'США', location: 'Нью-Йорк', ping: 45, flag: '🇺🇸' },
@@ -105,11 +95,6 @@ const Index = () => {
                     <div className="absolute inset-4 rounded-full bg-slate-900 flex items-center justify-center">
                       <div className="text-8xl">🌍</div>
                     </div>
-                    {isConnected && (
-                      <div className="absolute top-8 right-12 text-4xl animate-in zoom-in duration-500">
-                        🚩
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -126,7 +111,7 @@ const Index = () => {
                 </Button>
               </div>
 
-              {showNotification && (
+              {isConnected && (
                 <div className="mt-6 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50 px-4 py-2 text-base">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
