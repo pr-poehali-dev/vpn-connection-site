@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -10,6 +10,17 @@ const Index = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [selectedServer, setSelectedServer] = useState('США');
   const [currentTab, setCurrentTab] = useState('main');
+  const [showNotification, setShowNotification] = useState(false);
+
+  useEffect(() => {
+    if (isConnected) {
+      setShowNotification(true);
+      const timer = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isConnected]);
 
   const servers = [
     { name: 'США', location: 'Нью-Йорк', ping: 45, flag: '🇺🇸' },
@@ -40,13 +51,13 @@ const Index = () => {
       <div className="container max-w-md mx-auto px-4 py-6 relative z-10">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-            SecureVPN
+            SkyWorld
           </h1>
           
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full hover:bg-slate-800">
-                <Icon name="Settings" size={24} />
+                <Icon name="Settings" size={32} />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="bg-slate-900/95 backdrop-blur-md border-slate-800">
@@ -86,13 +97,18 @@ const Index = () => {
 
           <TabsContent value="main" className="space-y-8">
             <div className="relative flex flex-col items-center justify-center py-8">
-              <div className="relative w-64 h-64 flex items-center justify-center">
+              <div className="relative w-80 h-80 flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse-glow"></div>
                 
-                <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 flex items-center justify-center animate-spin-slow">
+                <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-slate-700 flex items-center justify-center animate-spin-slow">
                   <div className="absolute inset-4 rounded-full bg-slate-900 flex items-center justify-center">
-                    <div className="text-6xl">🌍</div>
+                    <div className="text-8xl">🌍</div>
                   </div>
+                  {isConnected && (
+                    <div className="absolute top-8 right-8 text-4xl animate-in zoom-in duration-500">
+                      🚩
+                    </div>
+                  )}
                 </div>
 
                 <Button
@@ -108,8 +124,8 @@ const Index = () => {
                 </Button>
               </div>
 
-              {isConnected && (
-                <div className="mt-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {showNotification && (
+                <div className="absolute top-32 text-center animate-in fade-in slide-in-from-top-4 duration-500">
                   <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50 px-4 py-2 text-base">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
                     Подключено к {selectedServer}
