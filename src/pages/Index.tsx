@@ -28,8 +28,16 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-      <div className="container max-w-md mx-auto px-4 py-6">
+    <div className="min-h-screen relative text-white overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: 'url(https://cdn.poehali.dev/files/5fbe9ca0dbb100822e681ce3ad7da1e1.jpg)',
+        }}
+      />
+      <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" />
+      
+      <div className="container max-w-md mx-auto px-4 py-6 relative z-10">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
             SecureVPN
@@ -41,7 +49,7 @@ const Index = () => {
                 <Icon name="Settings" size={24} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-slate-900 border-slate-800">
+            <SheetContent side="right" className="bg-slate-900/95 backdrop-blur-md border-slate-800">
               <SheetHeader>
                 <SheetTitle className="text-white">Меню</SheetTitle>
               </SheetHeader>
@@ -64,7 +72,7 @@ const Index = () => {
         </header>
 
         <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-slate-800/50 mb-8">
+          <TabsList className="grid w-full grid-cols-3 bg-slate-800/70 backdrop-blur-md mb-8">
             <TabsTrigger value="main" className="data-[state=active]:bg-slate-700">
               Главная
             </TabsTrigger>
@@ -110,7 +118,7 @@ const Index = () => {
               )}
             </div>
 
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
+            <Card className="bg-slate-800/70 backdrop-blur-md border-slate-700 p-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">Сервер</span>
@@ -132,7 +140,7 @@ const Index = () => {
             {servers.map((server) => (
               <Card
                 key={server.name}
-                className={`bg-slate-800/50 border-slate-700 p-4 cursor-pointer transition-all hover:bg-slate-800 ${
+                className={`bg-slate-800/70 backdrop-blur-md border-slate-700 p-4 cursor-pointer transition-all hover:bg-slate-800 ${
                   selectedServer === server.name ? 'ring-2 ring-blue-500' : ''
                 }`}
                 onClick={() => setSelectedServer(server.name)}
@@ -162,7 +170,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="stats" className="space-y-4">
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
+            <Card className="bg-slate-800/70 backdrop-blur-md border-slate-700 p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Icon name="Download" size={20} className="text-blue-400" />
                 Скорость загрузки
@@ -172,7 +180,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
+            <Card className="bg-slate-800/70 backdrop-blur-md border-slate-700 p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Icon name="Upload" size={20} className="text-emerald-400" />
                 Скорость отдачи
@@ -182,7 +190,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
+            <Card className="bg-slate-800/70 backdrop-blur-md border-slate-700 p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Icon name="Activity" size={20} className="text-purple-400" />
                 Пинг
@@ -192,7 +200,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
+            <Card className="bg-slate-800/70 backdrop-blur-md border-slate-700 p-6">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <Icon name="HardDrive" size={20} className="text-orange-400" />
                 Использовано данных
